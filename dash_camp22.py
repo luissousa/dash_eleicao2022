@@ -34,12 +34,7 @@ elif   sel_cargo == '1º SUPLENTE':
 else:
     candidatos_df = candidatos_df[candidatos_df['DS_CARGO']=='2º SUPLENTE']
 
-#Esse controle estava dando um erro porque não existe dados de candidados
-#ao governo inapto e com isso um ValueError era lançado
-#tentou-se resolver com try except sem sucesso
-#logo deixaremos setado a variável para capturar somente os candidados aptos
-
-seleciona_situacao = 'APTO'#st.sidebar.selectbox('Situação que você deseja vizualizar?',['Todos','APTO','INAPTO'])
+seleciona_situacao = st.sidebar.selectbox('Situação que você deseja vizualizar?',['Todos','APTO','INAPTO'])
 if seleciona_situacao == 'APTO':
     candidatos_df = candidatos_df[candidatos_df['DS_SITUACAO_CANDIDATURA']=='APTO']
 elif seleciona_situacao == 'INAPTO':
@@ -71,62 +66,81 @@ if seleciona_raca == 'PARDA':
 else:
     pass
 
-sel_estudo = 'TODOS'#st.sidebar.selectbox('Nível de instrução do candidato?',['TODOS','FUNDAMENTAL','MÉDIO','SUPERIOR'])
+sel_estudo = st.sidebar.selectbox('Nível de instrução do candidato?',['TODOS','FUNDAMENTAL','MÉDIO','SUPERIOR'])
 if sel_estudo == 'FUNDAMENTAL':
-    candidatos_df = candidatos_df[candidatos_df['DS_CARGO']=='ENSINO FUNDAMENTAL']
+    candidatos_df = candidatos_df[candidatos_df['DS_GRAU_INSTRUCAO']=='ENSINO FUNDAMENTAL']
 elif sel_estudo == 'MÉDIO':
-    candidatos_df = candidatos_df[candidatos_df['DS_CARGO']=='ENSINO MEDIO']
+    candidatos_df = candidatos_df[candidatos_df['DS_GRAU_INSTRUCAO']=='ENSINO MEDIO']
 elif sel_estudo == 'SUPERIOR':
-    candidatos_df = candidatos_df[candidatos_df['DS_CARGO']=='ENSINO SUPERIOR']
+    candidatos_df = candidatos_df[candidatos_df['DS_GRAU_INSTRUCAO']=='ENSINO SUPERIOR']
 else:
     pass
 
 col1,col2,col3,col4 = st.columns(4)
 with col1:
-    ax = sns.color_palette("pastel")
-    ax = sns.set_theme(style='darkgrid', palette='pastel')
-    fig, ax = plt.subplots()
-    fig = plt.figure(figsize=(5,5))
-    ax = sns.countplot(x=candidatos_df['DS_CARGO'],hue=candidatos_df['SG_UF'])
-    for p in ax.patches:
-        ax.annotate('{}'.format(p.get_height()), (p.get_x()+0.12, p.get_height()+.05))
-    plt.title('Cargo')
-    plt.xlabel(" ")
-    plt.ylabel(" ")
-    st.pyplot(fig)
+    try:
+        ax = sns.color_palette("pastel")
+        ax = sns.set_theme(style='darkgrid', palette='pastel')
+        fig, ax = plt.subplots()
+        fig = plt.figure(figsize=(5,5))
+        ax = sns.countplot(x=candidatos_df['DS_CARGO'],hue=candidatos_df['SG_UF'])
+        for p in ax.patches:
+            ax.annotate('{}'.format(p.get_height()), (p.get_x()+0.12, p.get_height()+.05))
+        plt.title('Cargo')
+        plt.xlabel(" ")
+        plt.ylabel(" ")
+        st.pyplot(fig)
+    except:
+        st.image(image='maw.png')
+        ValueError
+
 with col2:
-    ax = sns.color_palette("pastel")
-    ax = sns.set_theme(style='darkgrid', palette='pastel')
-    fig, ax = plt.subplots()
-    fig = plt.figure(figsize=(5,5))
-    ax = sns.countplot(x=candidatos_df['DS_CARGO'],hue=candidatos_df['DS_GENERO'])
-    for p in ax.patches:
-        ax.annotate('{}'.format(p.get_height()), (p.get_x()+0.12, p.get_height()+.05))
-    plt.title('Gênero')
-    plt.xlabel(" ")
-    plt.ylabel(" ")
-    st.pyplot(fig)
+    try:
+        ax = sns.color_palette("pastel")
+        ax = sns.set_theme(style='darkgrid', palette='pastel')
+        fig, ax = plt.subplots()
+        fig = plt.figure(figsize=(5,5))
+        ax = sns.countplot(x=candidatos_df['DS_CARGO'],hue=candidatos_df['DS_GENERO'])
+        for p in ax.patches:
+            ax.annotate('{}'.format(p.get_height()), (p.get_x()+0.12, p.get_height()+.05))
+        plt.title('Gênero')
+        plt.xlabel(" ")
+        plt.ylabel(" ")
+        st.pyplot(fig)
+    except:
+        st.image(image='maw.png')
+        ValueError
+
 with col3:
-    ax = sns.color_palette("pastel")
-    ax = sns.set_theme(style='darkgrid', palette='pastel')
-    fig, ax = plt.subplots()
-    fig = plt.figure(figsize=(5,5))
-    ax = sns.countplot(x=candidatos_df['DS_CARGO'],hue=candidatos_df['DS_COR_RACA'])
-    for p in ax.patches:
-        ax.annotate('{}'.format(p.get_height()), (p.get_x()+0.12, p.get_height()+.05))
-    plt.title('Raça')
-    plt.xlabel(" ")
-    plt.ylabel(" ")
-    st.pyplot(fig)
+    try:
+        ax = sns.color_palette("pastel")
+        ax = sns.set_theme(style='darkgrid', palette='pastel')
+        fig, ax = plt.subplots()
+        fig = plt.figure(figsize=(5,5))
+        ax = sns.countplot(x=candidatos_df['DS_CARGO'],hue=candidatos_df['DS_COR_RACA'])
+        for p in ax.patches:
+            ax.annotate('{}'.format(p.get_height()), (p.get_x()+0.12, p.get_height()+.05))
+        plt.title('Raça')
+        plt.xlabel(" ")
+        plt.ylabel(" ")
+        st.pyplot(fig)
+    except:
+        st.image(image='maw.png')
+        ValueError
+
 with col4:
-    ax = sns.color_palette("pastel")
-    ax = sns.set_theme(style='darkgrid', palette='pastel')
-    fig, ax = plt.subplots()
-    fig = plt.figure(figsize=(5,5))
-    ax = sns.countplot(x=candidatos_df['DS_CARGO'],hue=candidatos_df['DS_GRAU_INSTRUCAO'])
-    for p in ax.patches:
-        ax.annotate('{}'.format(p.get_height()), (p.get_x()+0.12, p.get_height()+.05))
-    plt.title('DS_Grau de Instrução')
-    plt.xlabel(" ")
-    plt.ylabel(" ")
-    st.pyplot(fig)
+    try:
+        ax = sns.color_palette("pastel")
+        ax = sns.set_theme(style='darkgrid', palette='pastel')
+        fig, ax = plt.subplots()
+        fig = plt.figure(figsize=(5,5))
+        ax = sns.countplot(x=candidatos_df['DS_CARGO'],hue=candidatos_df['DS_GRAU_INSTRUCAO'])
+        for p in ax.patches:
+            ax.annotate('{}'.format(p.get_height()), (p.get_x()+0.12, p.get_height()+.05))
+        plt.title('Grau de Instrução')
+        plt.xlabel(" ")
+        plt.ylabel(" ")
+        st.pyplot(fig)
+    except:
+        st.image(image='maw.png')
+        ValueError
