@@ -4,8 +4,10 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 st.set_page_config(layout='wide',page_title='Eleições 2022 (CE-MA-PI)')
-st.title("Eleições 2022")
-st.markdown("Visões sobre as Eleições brasileiras ano:2022")
+#st.title("Eleições 2022")
+st.image(image='logo.png')
+st.markdown("Visões sobre as Eleições brasileiras ano:2022 produzido por: Kalil e Luís Antônio")
+
 candidatos_df = pd.read_csv('candidatos2022.csv',encoding='latin-1')
 
 seleciona_estado = st.sidebar.selectbox('Qual estado você deseja vizualizar?',['TODOS','CE','MA','PI'])
